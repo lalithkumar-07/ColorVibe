@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ palette.name }} — ColorVibe{% endblock %}
+{% block body_class %}has-detail{% endblock %}
+
+{% block content %}
+<section class="detail-header">
+    <a href="{{ url_for('palette.dashboard') }}" class="back-link">&larr; My palettes</a>
+    <h1>{{ palette.name }}</h1>
+    <span class="palette-card-harmony">{{ palette.harmony }} harmony</span>
+</section>
+
+<section class="swatch-strip swatch-strip--static">
+    {% for color in palette.colors %}
+    <div class="swatch">
+        <button class="swatch-hex swatch-hex--static" type="button" data-hex="{{ color }}">
+            <span class="hex-value">{{ color }}</span>
+            <span class="copy-hint">Copy</span>
+        </button>
+    </div>
+    {% endfor %}
+</section>
+
+<section class="export-panel">
+    <h2>Export</h2>
+    <div class="export-tabs" role="tablist">
+        <button class="export-tab is-active" data-format="css">CSS variables</button>
+        <button class="export-tab" data-format="json">JSON</button>
+    </div>
+    <pre class="export-code" id="exportCode"></pre>
+    <button class="btn btn--ghost" id="copyExportBtn" type="button">Copy code</button>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    window.PALETTE_COLORS = {{ palette.colors | tojson }};
+</script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

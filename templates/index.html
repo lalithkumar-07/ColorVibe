@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}ColorVibe — Generate a palette{% endblock %}
+{% block body_class %}has-generator{% endblock %}
+
+{% block content %}
+<section class="generator-hero">
+
+    <div class="generator-intro">
+        <span class="eyebrow">Press <kbd>space</kbd> to shuffle</span>
+        <h1 class="generator-title">Find five colors<br>that actually work together.</h1>
+        <p class="generator-sub">Lock the ones you like, pick a harmony rule, and let the rest regenerate around them.</p>
+    </div>
+
+    <div class="harmony-bar" role="group" aria-label="Harmony rule">
+        <button class="harmony-chip is-active" data-harmony="random">Random</button>
+        <button class="harmony-chip" data-harmony="complementary">Complementary</button>
+        <button class="harmony-chip" data-harmony="analogous">Analogous</button>
+        <button class="harmony-chip" data-harmony="triadic">Triadic</button>
+        <button class="harmony-chip" data-harmony="monochromatic">Monochromatic</button>
+    </div>
+
+    <div class="swatch-strip" id="swatchStrip" data-count="5">
+        {% for color in initial_colors %}
+        <div class="swatch" data-index="{{ loop.index0 }}" style="background-color: {{ color }};">
+            <div class="swatch-controls">
+                <button class="swatch-lock" type="button" aria-pressed="false" aria-label="Lock this color">
+                    <svg class="icon-unlocked" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 11V7a5 5 0 0 1 9.9-1"/><rect x="5" y="11" width="14" height="10" rx="2"/></svg>
+                    <svg class="icon-locked" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 11V7a5 5 0 0 1 10 0v4"/><rect x="5" y="11" width="14" height="10" rx="2"/></svg>
+                </button>
+            </div>
+            <button class="swatch-hex" type="button" data-hex="{{ color }}">
+                <span class="hex-value">{{ color }}</span>
+                <span class="copy-hint">Copy</span>
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="generator-actions">
+        <button class="btn btn--ghost" id="shuffleBtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3l4 4-4 4M3 7h6l3 3M17 21l4-4-4-4M3 17h6l10-10"/></svg>
+            Shuffle
+        </button>
+        <button class="btn btn--primary" id="saveBtn" type="button">Save palette</button>
+    </div>
+</section>
+
+<div class="modal" id="saveModal" hidden>
+    <div class="modal-panel">
+        <h2>Name this palette</h2>
+        <form id="saveForm" novalidate>
+            <label for="paletteName">Palette name</label>
+            <input type="text" id="paletteName" name="name" maxlength="80" placeholder="e.g. Golden Hour" required>
+            <p class="field-error" id="paletteNameError" hidden></p>
+            <div class="modal-actions">
+                <button type="button" class="btn btn--ghost" id="cancelSaveBtn">Cancel</button>
+                <button type="submit" class="btn btn--primary">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    window.COLORVIBE = {
+        isLoggedIn: {{ 'true' if is_logged_in else 'false' }},
+        loginUrl: "{{ url_for('auth.login') }}",
+        saveUrl: "{{ url_for('palette.save_palette') }}"
+    };
+</script>
+<script src="{{ url_for('static', filename='js/generator.js') }}"></script>
+{% endblock %}

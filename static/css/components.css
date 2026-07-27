@@ -1,0 +1,248 @@
+/* ============================================================
+   components.css — nav, buttons, forms, cards, modal, flash
+   ============================================================ */
+
+/* ---- Navbar ------------------------------------------------ */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.75rem 1.5rem 1rem;
+}
+
+.nav-brand {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.nav-brand-mark {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, var(--ochre), var(--pine));
+    display: inline-block;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--mist);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.15s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.nav-link:hover { color: var(--paper); }
+
+.nav-link--cta {
+    color: var(--ink);
+    background: var(--ochre);
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+}
+
+.nav-link--cta:hover { background: var(--ochre-dim); color: var(--ink); }
+
+.nav-username {
+    color: var(--paper);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.nav-logout-form { margin: 0; }
+
+/* ---- Buttons ------------------------------------------------ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.85rem 1.5rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn svg { width: 18px; height: 18px; }
+
+.btn--primary {
+    background: var(--ochre);
+    color: var(--ink);
+}
+
+.btn--primary:hover { background: var(--ochre-dim); transform: translateY(-1px); }
+
+.btn--ghost {
+    background: transparent;
+    color: var(--paper);
+    border-color: var(--line);
+}
+
+.btn--ghost:hover { border-color: var(--paper); }
+
+.btn--danger { color: var(--rust); border-color: var(--rust); background: transparent; }
+.btn--danger:hover { background: rgba(196, 87, 63, 0.12); }
+
+.btn--block { width: 100%; }
+
+.icon-btn {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--mist);
+    border-radius: var(--radius-sm);
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.icon-btn svg { width: 16px; height: 16px; }
+.icon-btn:hover { color: var(--paper); border-color: var(--paper); }
+.palette-delete-btn:hover { color: var(--rust); border-color: var(--rust); }
+
+/* ---- Forms ---------------------------------------------------- */
+form label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--paper);
+    margin: 1.1rem 0 0.4rem;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+    width: 100%;
+    background: var(--ink);
+    border: 1px solid var(--line);
+    color: var(--paper);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 0.9rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color 0.15s ease;
+}
+
+form input:focus { border-color: var(--ochre); outline: none; }
+
+form input.is-invalid { border-color: var(--rust); }
+
+.field-hint {
+    font-size: 0.8rem;
+    color: var(--mist);
+    margin: 0.35rem 0 0;
+}
+
+.field-error {
+    font-size: 0.8rem;
+    color: var(--rust);
+    margin: 0.35rem 0 0;
+}
+
+/* ---- Flash messages -------------------------------------------- */
+.flash-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin: 1.5rem 0;
+}
+
+.flash {
+    padding: 0.85rem 1.1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    border: 1px solid transparent;
+}
+
+.flash--success {
+    background: rgba(47, 111, 99, 0.15);
+    border-color: rgba(47, 111, 99, 0.4);
+    color: #7FCBBB;
+}
+
+.flash--error {
+    background: rgba(196, 87, 63, 0.12);
+    border-color: rgba(196, 87, 63, 0.4);
+    color: #E8998A;
+}
+
+/* ---- Modal ---------------------------------------------------- */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 12, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 1.5rem;
+}
+
+.modal[hidden] { display: none; }
+
+.modal-panel {
+    background: var(--ink-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    width: 100%;
+    max-width: 420px;
+}
+
+.modal-panel h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.25rem;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+/* ---- Toast (used by utils.js for copy feedback) ---------------- */
+.toast {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.7rem 1.2rem;
+    border-radius: 999px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 200;
+}
+
+.toast.is-visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
